@@ -44,7 +44,7 @@ hi Folded       guifg=#000000
 
 hi NonText      guifg=#696969               gui=NONE
 
-"""""
+""""""
 " GUI
 
 hi VertSplit    guifg=#444444 guibg=#696969
@@ -52,7 +52,7 @@ hi Pmenu                      guibg=#696969
 hi StatusLine   guifg=#FFD700 guibg=#666666 gui=NONE 
 hi StatusLineNC guifg=#696969 guibg=#444444 gui=NONE
 
-"""""""""""""
+""""""""""""""
 " User groups
 
 hi User1        guifg=#E0E000 guibg=#666666 gui=NONE
@@ -60,13 +60,13 @@ hi User2        guifg=#00BFFF guibg=#666666 gui=NONE
 hi User3        guifg=#00FF00 guibg=#666666 gui=NONE
 hi User4        guifg=#FF0000 guibg=#666666 gui=NONE
 
-""""""""
+"""""""""
 " Syntax
 
-" hi Comment      guifg=#8FBC8F gui=italic
-" hi Comment       guifg=#BC9357 gui=italic
-" hi! Comment       guifg=#DEB887 gui=italic
-hi! Comment       guifg=#999999 gui=italic
+" hi Comment       guifg=#8FBC8F
+" hi Comment       guifg=#BC9357
+" hi! Comment      guifg=#DEB887
+hi! Comment    guifg=#999999
 
 hi! link Todo Comment
 hi! link SpecialComment Comment
@@ -99,7 +99,7 @@ hi! link Delimiter Identifier
 hi! link Debug Identifier
 hi! link PreProc Identifier
 
-"""""""""""""""""""
+""""""""""""""""""""
 " Language specific
 
 hi! link javaScriptBraces Normal

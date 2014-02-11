@@ -133,7 +133,6 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 " backspace in Visual mode deletes selection
 vnoremap <BS> d
 
-" CTRL-X is Cut
 vmap <C-x> "+x
 smap <C-x> <C-g>"+x
 nmap <silent> <C-X> :call CutNonEmptyLineToClipboard()<CR>
@@ -203,10 +202,6 @@ smap : <Esc>:
 
 " close(wipe) the current buffer withot closing the window 
 map <leader>d :BufstopBack<CR>:bw #<CR>
-
-map <leader>ss :call CustomSessionSave()<CR>
-map <leader>sl :call CustomSessionRestore()<CR>
-map <leader>sd :call CustomSessionDelete()<CR>
 
 noremap <leader>ff :let @+=expand("%:p")<CR>
 noremap <leader>fn :let @+=expand("%")<CR>
@@ -314,6 +309,7 @@ set statusline+=%<%P                  " percent
 
 " Vundle
 filetype off
+" set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -326,10 +322,12 @@ Bundle 'matchit.zip'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
 Bundle 'tomtom/tcomment_vim'
-Bundle 'xolox/vim-shell'
+" Bundle 'xolox/vim-misc'
+" Bundle 'xolox/vim-shell'
 Bundle 'mihaifm/bck'
 Bundle 'mihaifm/vimpanel'
 Bundle 'mihaifm/bufstop'
+Bundle 'vim-ruby/vim-ruby'
 
 filetype plugin indent on
 
@@ -337,13 +335,35 @@ filetype plugin indent on
 let g:ctrlp_working_path_mode='r'
 
 " Easy motion 
-let g:EasyMotion_leader_key = 'g'
+" let g:EasyMotion_leader_key = 'g'
+nmap ss <Plug>(easymotion-s2)
+nmap st <Plug>(easymotion-t2)
+map sh <Plug>(easymotion-lineforward)
+map sj <Plug>(easymotion-j)
+map sk <Plug>(easymotion-k)
+map sl <Plug>(easymotion-linebackward)
+map  s/ <Plug>(easymotion-sn)
+omap s/ <Plug>(easymotion-tn)
+map  sn <Plug>(easymotion-next)
+map  sN <Plug>(easymotion-prev)
+map sw <Plug>(easymotion-w)
+map sb <Plug>(easymotion-bd-w)
+
+let g:EasyMotion_startofline = 0
+let g:EasyMotion_keys = 'asdghkqwertyuiopzxcvbnmfjl'
 
 " vim-shell disable all mappings
 let g:shell_mappings_enabled = 0
 
 " bufstop
 let g:BufstopAutoSpeedToggle = 1
+let g:BufstopSplit = "topleft"
+
+" Bck
+let g:BckPrg = 'ag --nocolor --nogroup --column'
+
+" Vimpanel
+let g:VimpanelStorage = '~/.vimpanel'
 
 """"""""""
 " Commands
@@ -366,6 +386,7 @@ command! -nargs=1 Findo call Findo(<q-args>)
 autocmd FileType markdown setlocal tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType vim setlocal iskeyword-=# 
 autocmd FileType ruby setlocal iskeyword-=:
+autocmd FileType css,scss,html,eruby setlocal iskeyword +=-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
