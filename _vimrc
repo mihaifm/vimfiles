@@ -348,6 +348,7 @@ map  sn <Plug>(easymotion-next)
 map  sN <Plug>(easymotion-prev)
 map sw <Plug>(easymotion-w)
 map sb <Plug>(easymotion-bd-w)
+map se <Plug>(easymotion-e)
 
 let g:EasyMotion_startofline = 0
 let g:EasyMotion_keys = 'asdghkqwertyuiopzxcvbnmfjl'

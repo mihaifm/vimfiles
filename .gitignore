@@ -1,3 +1,2 @@
-bundle/*/doc/tags
-bundle/*/.netrwhist
 *.bkp
+doc/tags
