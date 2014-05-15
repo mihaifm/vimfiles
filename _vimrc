@@ -9,11 +9,7 @@ set ignorecase
 " case sensitive search only if uppercase characters are used 
 set smartcase 
 " highlight search term while typing 
-set incsearch 
-
-" set the directory of the buffer equal to the working directory
-" set autochdir
-" autocmd BufEnter * lcd %:p:h
+set incsearch
 
 " encoding
 set encoding=utf8
@@ -168,10 +164,9 @@ noremap <C-S>		:update<CR>
 vnoremap <C-S>		<C-C>:update<CR>
 inoremap <C-S>		<C-O>:update<CR><Esc>
 
-nmap <C-tab> :BufstopBack<CR>
-nmap <S-tab> :BufstopForward<CR>
-vmap <C-tab> :BufstopBack<CR>
-vmap <S-tab> :BufstopForward<CR>
+" Bufstop way to get to the previous buffer 
+nmap <C-tab> <leader>2
+vmap <C-tab> <leader>2
 
 " CTRL-Z is Undo; not in cmdline though
 noremap <C-Z> u
@@ -213,9 +208,9 @@ map <leader>b :Bufstop<CR>
 map <leader>a :BufstopModeFast<CR>
 map <leader>q :BckOpen<CR>
 
-if has("win32")
-  map <leader>c :!start cmd<CR>
-end
+" if has("win32")
+"  map <leader>c :!start cmd<CR>
+" end
 
 nmap <leader>z :let &scrolloff=999-&scrolloff<CR>
 
@@ -226,6 +221,11 @@ nmap <C-k> 3k3<C-y>
 " insert line in normal mode
 " nmap <C-Space> mpo<Esc>`p
 nmap <C-Space> o<Esc>
+
+" change current dir, replaces:
+"   set autochdir
+"   autocmd BufEnter * lcd %:p:h
+nmap <leader>cd :cd\ %:p:h<CR>
 
 """"""""""""""""
 " Abbreviations
@@ -307,27 +307,10 @@ set statusline+=%<%P                  " percent
 """"""""""
 " Plugins
 
-" Vundle
 filetype off
-" set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'othree/html5.vim'
-Bundle 'matchit.zip'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
-Bundle 'tomtom/tcomment_vim'
-" Bundle 'xolox/vim-misc'
-" Bundle 'xolox/vim-shell'
-Bundle 'mihaifm/bck'
-Bundle 'mihaifm/vimpanel'
-Bundle 'mihaifm/bufstop'
-Bundle 'vim-ruby/vim-ruby'
+" Pathogen
+call pathogen#infect()
 
 filetype plugin indent on
 
