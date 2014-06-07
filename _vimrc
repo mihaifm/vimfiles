@@ -321,10 +321,10 @@ let g:ctrlp_working_path_mode='r'
 " let g:EasyMotion_leader_key = 'g'
 nmap ss <Plug>(easymotion-s2)
 nmap st <Plug>(easymotion-t2)
-map sh <Plug>(easymotion-lineforward)
+map sl <Plug>(easymotion-lineforward)
 map sj <Plug>(easymotion-j)
 map sk <Plug>(easymotion-k)
-map sl <Plug>(easymotion-linebackward)
+map sh <Plug>(easymotion-linebackward)
 map  s/ <Plug>(easymotion-sn)
 omap s/ <Plug>(easymotion-tn)
 map  sn <Plug>(easymotion-next)
@@ -347,7 +347,9 @@ let g:BufstopSplit = "topleft"
 let g:BckPrg = 'ag --nocolor --nogroup --column'
 
 " Vimpanel
-let g:VimpanelStorage = '~/.vimpanel'
+if !has("win32")
+    let g:VimpanelStorage = '~/.vimpanel'
+endif
 
 """"""""""
 " Commands
