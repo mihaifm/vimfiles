@@ -38,6 +38,8 @@ set selection=inclusive
 
 " right click extends selection
 set mousemodel=extend
+set mouse=a
+set ttymouse=xterm
 
 
 " disable auto insertion of comments
@@ -97,6 +99,7 @@ if has("gui_running")
   endif
 endif
 
+set background=dark
 colorscheme meditation
 
 " fill vertical bar with dots
@@ -129,32 +132,55 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 " backspace in Visual mode deletes selection
 vnoremap <BS> d
 
-vmap <C-x> "+x
-smap <C-x> <C-g>"+x
-nmap <silent> <C-X> :call CutNonEmptyLineToClipboard()<CR>
+if has("clipboard")
+  vmap <C-x> "+x
+  smap <C-x> <C-g>"+x
+  nmap <silent> <C-X> :call CutNonEmptyLineToClipboard()<CR>
+else
+  vmap <C-x> "cx
+  smap <C-x> <C-g>"cx
+  nmap <silent> <C-X> :call CutNonEmptyLineToCReg()<CR>
+endif
 
 " If the current line is non-empty cut it to the clipboard
 " An empty line is put into the black hole registry
 function! CutNonEmptyLineToClipboard()
-    " if strlen(getline('.')) != 0
     if match(getline('.'), '^\s*$') == -1
-        normal 0"+D
+        normal 0"+d$
     else
         normal "_dd
     endif
 endfunction
 
-" CTRL-C is Copy
-vmap <C-C> "+y
+function! CutNonEmptyLineToCReg()
+    if match(getline('.'), '^\s*$') == -1
+        normal 0"cd$
+    else
+        normal "_dd
+    endif
+endfunction
 
-" CTRL-V is Paste
-map <C-V>	"+gP
+if has("clipboard")
+  " CTRL-C is Copy
+  vmap <C-C> "+y
 
-" enable Paste in command mode
-cmap <C-v> <C-R>+
+  " CTRL-V is Paste
+  map <C-V>	"+gP
 
-exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
-exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
+  " enable Paste in command mode
+  cmap <C-v> <C-R>+
+
+  exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
+  exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
+else
+  " clipboard unavailable, use c registry
+  vmap <C-C> "cy
+  map <C-V>	"cgP
+  cmap <C-v> <C-R>c
+endif
+
+" Enable yanked text to be pasted multiple times
+xnoremap p pgvy
 
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>   <C-V>
@@ -185,17 +211,19 @@ nmap <S-F3> #zz
 nmap <F4> :Bck<CR>
 
 " better movement in command line
-cnoremap <C-H> <Left>
-cnoremap <C-L> <Right>
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
+if has("gui_running")
+  cnoremap <C-H> <Left>
+  cnoremap <C-L> <Right>
+  cnoremap <C-A> <Home>
+  cnoremap <C-E> <End>
+endif
 
 " remap : in select mode, which normally inserts text
 smap : <Esc>:
 
 " leader mappings
 
-" close(wipe) the current buffer withot closing the window 
+" close(wipe) the current buffer without closing the window
 map <leader>d :BufstopBack<CR>:bw #<CR>
 
 noremap <leader>ff :let @+=expand("%:p")<CR>
@@ -220,7 +248,11 @@ nmap <C-k> 3k3<C-y>
 
 " insert line in normal mode
 " nmap <C-Space> mpo<Esc>`p
-nmap <C-Space> o<Esc>
+if has("gui_running")
+  nmap <C-Space> o<Esc>
+else
+  nnoremap <NUL> o<Esc>
+end
 
 " change current dir, replaces:
 "   set autochdir
@@ -265,12 +297,12 @@ endfunction
 set cpoptions+=I
 
 " disable limit on inserted text
-set textwidth=0 
+set textwidth=0
 " long lines don't break at screen end
-set nowrap 
+set nowrap
 
 " when at end of screan, scroll only 5 characters
-set sidescroll=5 
+set sidescroll=5
 " long lines are market with > and < at end of screen
 set listchars+=precedes:<,extends:>
 
@@ -317,7 +349,7 @@ filetype plugin indent on
 " CtrlP - use project directory as search root
 let g:ctrlp_working_path_mode='r'
 
-" Easy motion 
+" Easy motion
 " let g:EasyMotion_leader_key = 'g'
 nmap ss <Plug>(easymotion-s2)
 nmap st <Plug>(easymotion-t2)
@@ -342,6 +374,7 @@ let g:shell_mappings_enabled = 0
 " bufstop
 let g:BufstopAutoSpeedToggle = 1
 let g:BufstopSplit = "topleft"
+let g:BufstopKeys = "1234asfcvzx5qwertyuiopbnm67890ABCEFGHIJKLMNOPQRSTUVZ"
 
 " Bck
 let g:BckPrg = 'ag --nocolor --nogroup --column'
@@ -371,10 +404,15 @@ command! -nargs=1 Findo call Findo(<q-args>)
 
 autocmd FileType markdown setlocal tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType vim setlocal iskeyword-=# 
-autocmd FileType ruby setlocal iskeyword-=:
+autocmd * setlocal iskeyword-=:
 autocmd FileType css,scss,html,eruby setlocal iskeyword +=-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if &term == "dtterm"
+  set t_KD=^<Delete>
+  fixdel
+endif
 
 set secure
 

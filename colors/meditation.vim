@@ -30,10 +30,10 @@ let g:colors_name = "meditation"
 """""""""
 " General 
 
-hi Normal       guifg=#FAEBD7	 guibg=#222222
+hi Normal   ctermbg=Black   ctermfg=white   guifg=#FAEBD7	 guibg=#222222
 hi! link FoldColumn Normal
 
-hi Visual                     guibg=#2F4F4F 
+hi Visual   term=reverse    cterm=reverse   guibg=#2F4F4F 
 hi! link CursorLine Visual
 
 hi Cursor                     guibg=#FFA500
@@ -49,16 +49,16 @@ hi NonText      guifg=#696969               gui=NONE
 
 hi VertSplit    guifg=#444444 guibg=#696969
 hi Pmenu                      guibg=#696969 
-hi StatusLine   guifg=#FFD700 guibg=#666666 gui=NONE 
-hi StatusLineNC guifg=#696969 guibg=#444444 gui=NONE
+hi StatusLine   term=bold   ctermfg=Black   ctermbg=White    guifg=#FFD700 guibg=#666666 gui=NONE 
+hi StatusLineNC term=bold   guifg=#696969 guibg=#444444 gui=NONE
 
 """"""""""""""
 " User groups
 
-hi User1        guifg=#E0E000 guibg=#666666 gui=NONE
-hi User2        guifg=#00BFFF guibg=#666666 gui=NONE
-hi User3        guifg=#00FF00 guibg=#666666 gui=NONE
-hi User4        guifg=#FF0000 guibg=#666666 gui=NONE
+hi User1    term=bold   ctermfg=Black  ctermbg=White   guifg=#E0E000 guibg=#666666 gui=NONE
+hi User2    term=bold   ctermfg=Black  ctermbg=White    guifg=#00BFFF guibg=#666666 gui=NONE
+hi User3    term=bold   ctermfg=Black  ctermbg=White   guifg=#00FF00 guibg=#666666 gui=NONE
+hi User4    term=bold   ctermfg=Black  ctermbg=White   guifg=#FF0000 guibg=#666666 gui=NONE
 
 """""""""
 " Syntax
@@ -66,20 +66,20 @@ hi User4        guifg=#FF0000 guibg=#666666 gui=NONE
 " hi Comment       guifg=#8FBC8F
 " hi Comment       guifg=#BC9357
 " hi! Comment      guifg=#DEB887
-hi! Comment    guifg=#999999
+hi! Comment    term=bold    ctermfg=LightGreen   guifg=#999999
 
 hi! link Todo Comment
 hi! link SpecialComment Comment
 
-hi String       guifg=#F08080
+hi String   term=bold   ctermfg=LightRed    guifg=#F08080
 hi! link Special String
 hi! link Number String
 hi! link Character String
 hi! link Title String
 
-hi Function     guifg=#87CEEB
+hi Function   term=bold   ctermfg=LightBlue     guifg=#87CEEB
 
-hi Identifier   guifg=#40E0D0
+hi Identifier term=bold   ctermfg=Cyan    guifg=#40E0D0
 hi! link Constant Identifier
 hi! link Define Identifier
 hi! link Statement Identifier
@@ -116,3 +116,8 @@ hi! link htmlEndTag  xmlEndTag
 hi! link htmlArg     xmlArg
 
 hi! link perlSigil xmlTag
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionShade  ctermbg=none ctermfg=blue
+hi EasyMotionTarget2First ctermbg=none ctermfg=red
+hi EasyMotionTarget2Second ctermbg=none ctermfg=red
+hi EasyMotionMoveHL ctermbg=red ctermfg=black
